@@ -15,7 +15,7 @@ source venv/bin/activate.fish
 Install `gcc`
 * On Ubunutu one can install `gcc` via `apt install gcc`
 
-`Make` is also required to follow the usage section. Many systems include `make` as part of the OS; however, if yours does not many C build packages include it. Try using your package manager to find one that does. 
+`Make` is also required to follow the usage section. Many systems include `make` as part of the OS; however, if yours does not, many C build packages include it. Try using your package manager to find one that does. 
 
 ## Usage
 
@@ -23,15 +23,15 @@ This repo is intended to be used as notes for integrating C code with Python cod
 
 ## Tutorial
 
-Short Version: Run `make all` and experiment at your leisure
+### Short Version: Run `make all` and experiment at your leisure.
 
-Longer Version:
+### Longer Version:
 
 The C code, `mynum.c` and `mynum.h`, contain a simple struct with an int and string (char *) and some accompanying functions. 
 
 First one must compile the C code into a library that we can load into our Python module. To do this, use the `Makefile`. Run the command `make mynum.so` to compile the library. 
 
-Once this is done, one can then load the library using the `ctypes` library:
+Once this is done, one can then load the library using the `ctypes` Python library (included in base Python):
 ```py
 import ctypes
 from pathlib import Path
@@ -40,12 +40,13 @@ libname = Path.cwd() / 'libmynum.so'
 LIBC = ctypes.CDLL(libname)
 ```
 
-At this point the functions are available to be called through the `LIBC` object. For example if one wants to call the `my_add()` function, one can use the following
+At this point, the functions are available to be called through the `LIBC` object. For example, if one wants to call the `my_add()` function, one can use the following:
 ```py
 LIBC.my_add(num_one, num_two)
 ```
 
 It is important to remember that C requires function arguments to be of the correct type in order to function. In Python, one can use the `ctypes` library's type definitions to cast Python variables to their appropriate C type. 
+
 For example:
 ```py
 num_one = 1
