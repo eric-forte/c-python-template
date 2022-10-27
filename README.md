@@ -12,10 +12,6 @@ Activate using your preferred shell (e.g. fish)
 source venv/bin/activate.fish
 ```
 
-```
-pip install -r requirements.txt 
-```
-
 Install `gcc`
 * On Ubunutu one can install `gcc` via `apt install gcc`
 
