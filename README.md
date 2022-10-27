@@ -36,7 +36,7 @@ The C code, `mynum.c` and `mynum.h`, contain a simple struct with an int and str
 First one must compile the C code into a library that we can load into our Python module. To do this, use the `Makefile`. Run the command `make mynum.so` to compile the library. 
 
 Once this is done, one can then load the library using the `ctypes` library:
-```
+```py
 import ctypes
 from pathlib import Path
 
@@ -45,13 +45,13 @@ LIBC = ctypes.CDLL(libname)
 ```
 
 At this point the functions are available to be called through the `LIBC` object. For example if one wants to call the `my_add()` function, one can use the following
-```
+```py
 LIBC.my_add(num_one, num_two)
 ```
 
 It is important to remember that C requires function arguments to be of the correct type in order to function. In Python, one can use the `ctypes` library's type definitions to cast Python variables to their appropriate C type. 
 For example:
-```
+```py
 num_one = 1
 num_two = 2
 num_one = ctypes.c_int(num_one)
@@ -60,7 +60,7 @@ result = libc.my_add(num_one, num_two)
 ```
 
 One of the very useful aspects of using Python and C together is the ability to allocate C structs in either C or Python and use them in C functions. An example of this is included below. Note, there are many more complex ways of doing this where one can wrap the C library in Python, but these are well documented in other tutorials and outside the scope of this repo.
-```
+```py
 class Mynum(ctypes.Structure):
     _fields_ = [('num', ctypes.c_int),
                 ('desc',  ctypes.POINTER(ctypes.c_char))]
